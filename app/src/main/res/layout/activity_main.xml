@@ -84,7 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"/>
+                android:layout_marginRight="40dp"
+                android:text="Remover Pedido"
+                android:id="@+id/btRemovePedido"/>
             
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,6 +121,28 @@
                 android:text=""
                 android:textStyle="italic"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:text="Concluir"
+                    android:id="@+id/btConcluir"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:text="Limpar"
+                    android:id="@+id/btLimpar"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
