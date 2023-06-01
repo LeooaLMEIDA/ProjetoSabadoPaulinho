@@ -32,6 +32,33 @@
                 android:text="Selecione o Tamanho da Pizza"
                 android:textStyle="bold"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 20,00"
+                    android:textStyle="italic"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 30,00"
+                    android:textStyle="italic"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 40,00"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +103,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="185dp"
                 android:id="@+id/lvSabores"/>
 
             <Button
@@ -85,7 +112,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:text="Remover Pedido"
+                android:text="Remover Sabor"
+                android:onClick="removeSabor"
                 android:id="@+id/btRemovePedido"/>
             
             <LinearLayout
@@ -99,11 +127,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Com Borda"
+                    android:onClick="validaBorda"
                     android:id="@+id/cbBorda"/>
                 <CheckBox
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="validaRefrigerante"
                     android:text="Refrigerante"
                     android:id="@+id/cbRefrigerante"/>
 
@@ -120,6 +150,13 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textStyle="italic"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:id="@+id/tvSeuPedido"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,3 +183,5 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+
+
