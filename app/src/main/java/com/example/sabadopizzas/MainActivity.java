@@ -23,8 +23,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Spinner spSabores;
+    private RadioButton rbPequena;
+    private RadioButton rbMedia;
+    private RadioButton rbGrande;
     private ListView lvSabores;
     private Button btRemovePedido;
+    private Button btLimparPedido;
     private CheckBox cbBorda;
     private CheckBox cbRefrigerante;
     private TextView tvSeuPedido;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Double valorPizza = 0.00;
     private Double valorBorda = 0.00;
     private Double valorRefrigerante = 0.00;
-    private Integer quantidadeSabores;
+    private Integer quantidadeSabores = 0;
     private Pedido pedido = new Pedido();
     private Integer itemSelecionado = -1 ;
     private String descQtdSabores;
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         cbBorda = findViewById(R.id.cbBorda);
         cbRefrigerante = findViewById(R.id.cbRefrigerante);
         tvSeuPedido = findViewById(R.id.tvSeuPedido);
+        rbPequena = findViewById(R.id.rbTamPequena);
+        rbMedia = findViewById(R.id.rbTamMedia);
+        rbGrande = findViewById(R.id.rbTamGrande);
+        btLimparPedido = findViewById(R.id.btLimpar);
 
         String[] vetorSabores= new String[]{"","Margherita", "Calabresa", "Quatro Queijos",
                 "Pepperoni", "Frango com Catupiry", "Portuguesa", "Napolitana", "Muçarela",
@@ -75,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
                         + pedido.getTamanho();
 
                 if(!saborSelecionado.equals("")){
-                    if (Globais.listaSabores.size() < quantidadeSabores){
+                    if (quantidadeSabores == 0 ){
+                        Toast.makeText(MainActivity.this, "Não é permitido inserir um sabor, sem que o tamanho da pizza seja informado.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (Globais.listaSabores.size() < quantidadeSabores){
                         Globais.listaSabores.add(saborSelecionado);
                         jogarNaLista(Globais.listaSabores);
                         atualizaPedido();
@@ -97,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
                 itemSelecionado = position;
             }
         });
+
+        btLimparPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                limparCampos();
+            }
+        });
     }
 
     public void selecionarOpcao(View view) {
@@ -104,7 +122,15 @@ public class MainActivity extends AppCompatActivity {
 
         switch (view.getId()) {
             case R.id.rbTamPequena:
-                if (selecionado){
+                if (Globais.listaSabores.size() > 1){
+                    Toast.makeText(this, "Quantidade de Sabores adicionados é maior que o número permitido para este tamanho", Toast.LENGTH_SHORT).show();
+                    if (Globais.listaSabores.size() == 2){
+                        rbMedia.setChecked(true);
+                    } else if (Globais.listaSabores.size() == 4) {
+                        rbGrande.setChecked(true);
+                    }
+                }
+                else {
                     pedido.setTamanho("Pequena");
                     quantidadeSabores = 1;
                     valorPizza = 20.00;
@@ -112,7 +138,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.rbTamMedia:
-                if (selecionado){
+                if (Globais.listaSabores.size() > 1) {
+                    Toast.makeText(this, "Quantidade de Sabores adicionados é maior que o número permitido para este tamanho", Toast.LENGTH_SHORT).show();
+                    if (Globais.listaSabores.size() == 4) {
+                        rbGrande.setChecked(true);
+                    }
+                }
+                else{
                     pedido.setTamanho("Média");
                     quantidadeSabores = 2;
                     valorPizza = 30.00;
@@ -195,5 +227,34 @@ public class MainActivity extends AppCompatActivity {
                 valorPizza + valorBorda + valorRefrigerante);
 
         tvSeuPedido.setText(mensagem);
+    }
+
+
+    public void limparCampos(){
+        spSabores.setSelection(0);
+        Globais.listaSabores.clear();
+        jogarNaLista(Globais.listaSabores);
+        cbRefrigerante.setChecked(false);
+        cbBorda.setChecked(false);
+        tvSeuPedido.setText("");
+        quantidadeSabores = 0 ;
+        saborSelecionado = "";
+        valorRefrigerante = 0.0;
+        valorBorda = 0.0;
+        valorPizza = 0.0;
+        valorPedido = 0.0;
+
+
+        pedido = new Pedido();
+    }
+
+    public void concluirPedido(View view) {
+        if (Globais.listaSabores.size() > 0){
+            Toast.makeText(this, tvSeuPedido.getText().toString(), Toast.LENGTH_SHORT).show();
+            limparCampos();
+        }
+        else{
+            Toast.makeText(this, "Para Concluir o pedido é necessário preencher os campos.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -169,6 +169,7 @@
                     android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:text="Concluir"
+                    android:onClick="concluirPedido"
                     android:id="@+id/btConcluir"/>
 
                 <Button
@@ -178,7 +179,6 @@
                     android:layout_margin="10dp"
                     android:text="Limpar"
                     android:id="@+id/btLimpar"/>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
